@@ -2,6 +2,7 @@ package burp;
 
 import com.securityevaluators.burpeasyrequestsaver.DataSource;
 import com.securityevaluators.burpeasyrequestsaver.DataType;
+import com.securityevaluators.burpeasyrequestsaver.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,9 +68,18 @@ public class BurpExtender implements IBurpExtender, IContextMenuFactory
 
         int result = chooser.showSaveDialog(parentComponent);
         if (result != JFileChooser.APPROVE_OPTION) return;
+        Path chosenPath = chooser.getSelectedFile().toPath();
         if (requests.length == 1) {
-            saveItem(chooser.getSelectedFile().toPath(), requests[0], source, type);
+            saveItem(chosenPath, requests[0], source, type);
             return;
+        }
+
+        Path pathPrefix = chosenPath.getParent();
+        String prefix = Util.getBaseName(chosenPath) + " - ";
+        String extension = Util.getExtension(chosenPath);
+        for (int i = 0; i < requests.length; i++) {
+            Path curPath = pathPrefix.resolve(prefix + i + extension);
+            saveItem(curPath, requests[i], source, type);
         }
     }
 
