@@ -41,7 +41,7 @@ public class BurpExtender implements IBurpExtender, IContextMenuFactory
         int itemCount = iContextMenuInvocation.getSelectedMessages().length;
         if (itemCount < 1) return null;
         boolean plural = itemCount > 1;
-        JMenuItem exportItem = new JMenu("Export Contents");
+        JMenuItem exportItem = new JMenu("Export...");
         DataSource[] menuItemSources =
                 {DataSource.REQUEST, DataSource.REQUEST, DataSource.RESPONSE, DataSource.RESPONSE};
         DataType[] menuItemTypes =
