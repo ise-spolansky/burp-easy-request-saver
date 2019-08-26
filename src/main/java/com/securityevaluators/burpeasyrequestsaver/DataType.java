@@ -1,7 +1,7 @@
 package com.securityevaluators.burpeasyrequestsaver;
 
 public enum DataType {
-    HEADER("Header", "Headers"),
+    HEADER("Headers", "Headers"),
     BODY("Body", "Bodies");
 
     private String _singularNoun;
