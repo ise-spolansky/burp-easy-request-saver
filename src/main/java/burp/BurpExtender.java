@@ -1,4 +1,3 @@
-//Hello World burp extension taken from https://github.com/PortSwigger/example-hello-world/tree/master/java
 package burp;
 
 import com.securityevaluators.burpeasyrequestsaver.DataSource;
@@ -11,6 +10,10 @@ import java.util.List;
 
 public class BurpExtender implements IBurpExtender, IContextMenuFactory
 {
+
+    private PrintWriter stdout;
+    private PrintWriter stderr;
+
     @Override
     public void registerExtenderCallbacks(IBurpExtenderCallbacks callbacks)
     {
@@ -18,10 +21,10 @@ public class BurpExtender implements IBurpExtender, IContextMenuFactory
         callbacks.setExtensionName("Easy Request Saver");
 
         // obtain our output and error streams
-        PrintWriter stdout = new PrintWriter(callbacks.getStdout(), true);
-        PrintWriter stderr = new PrintWriter(callbacks.getStderr(), true);
+        stdout = new PrintWriter(callbacks.getStdout(), true);
+        stderr = new PrintWriter(callbacks.getStderr(), true);
 
-        callbacks.getContextMenuFactories().add(this);
+        callbacks.registerContextMenuFactory(this);
         stdout.println("Loaded Easy Request Saver extension");
     }
 
@@ -44,8 +47,9 @@ public class BurpExtender implements IBurpExtender, IContextMenuFactory
 
             item.addActionListener((arg) ->
                     SaveItems(source, type, iContextMenuInvocation.getSelectedMessages()));
-        }
 
+            exportItem.add(item);
+        }
 
         return Collections.singletonList(exportItem);
     }
