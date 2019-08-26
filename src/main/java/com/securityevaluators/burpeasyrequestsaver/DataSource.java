@@ -4,7 +4,7 @@ public enum DataSource {
     REQUEST(),
     RESPONSE();
 
-    private String _noun;
+    private final String _noun;
 
     DataSource() {
         _noun = name().substring(0,1).toUpperCase() + name().substring(1).toLowerCase();

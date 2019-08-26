@@ -4,8 +4,8 @@ public enum DataType {
     HEADER("Headers", "Headers"),
     BODY("Body", "Bodies");
 
-    private String _singularNoun;
-    private String _pluralNoun;
+    private final String _singularNoun;
+    private final String _pluralNoun;
 
     DataType(String singularNoun, String pluralNoun) {
         _singularNoun = singularNoun;
